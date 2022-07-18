@@ -44,6 +44,7 @@ public class LineView extends View {
         path = new Path();
     }
 
+    // Progress Bar Max를 100 -> 4096으로 바꾸었을 때 다시 드려줘야함.
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -56,14 +57,12 @@ public class LineView extends View {
             float positionX=(getWidth()/size*i)-(getWidth()/size/2); //x축으로 움직임.
             float value = lineMap.get(i); //선과 원의 거리 +5면 위로 5 올라감.
             float positionY= getHeight()-(float) ((getHeight()/100.0)*value);
+            Log.d("LineView::", "positionX: " + positionX + " value: " + value + " positionY: " + positionY);
             path.lineTo(positionX,positionY);
         }
         path.lineTo(getWidth() - 173 , getHeight()/2); //끝라인
         canvas.drawPath(path,paint);
-
-
     }
-
 
     public void setData(Map<Integer, Float> lineMap) {
         this.lineMap=lineMap;

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -147,12 +148,11 @@ public class EqualizerProgressBar extends View {
         equalizerProgressBarListener = listener;
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_MOVE:
-                float positionY = (getHeight() - event.getY() - getTop())* maxProgress/getHeight() ;
+                float positionY = (getHeight() - event.getY() - getTop())* maxProgress/getHeight();
                 processValue = positionY;
                 if(processValue < 0 || processValue > 100){
                     return true;
