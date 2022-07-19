@@ -76,7 +76,7 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
     @Override
     public void initData() {
         eqValues = new int[]{
-                50, 30, 60, 12, 18, 30, 50, 60, 70
+                50, 30, 60, 12, 18, 30, 50, 60,70
         };
         for (int i = 0; i < eqValues.length; i++) {
             mEqualizerProgressBars.get(i).setProcessValue(eqValues[i]);
@@ -107,7 +107,7 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
             // Tag Number == i가 같다면
             if (index == i) {
                 // 해당 Text에 setText
-                mTextView.get(i-1).setText(String.valueOf((int) value));
+                mTextView.get(i-1).setText(String.valueOf((int) (value * 40.96)));
             }
             lineMap.put(index, value);
             lineView.setData(lineMap);

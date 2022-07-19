@@ -50,7 +50,7 @@ public class LineView extends View {
         super.onDraw(canvas);
         canvas.drawColor(Color.TRANSPARENT);
         path.reset();
-        path.moveTo(173 , getHeight()/2); //시작 라인
+        path.moveTo(72 , getHeight()/2); //시작 라인
         int size=lineMap.size();
         for (int i = 1; i <= lineMap.size(); i++) {
             //float positionX=(getWidth()/size*i)-(getWidth()/size/2); //x축으로 움직임.
@@ -60,7 +60,7 @@ public class LineView extends View {
             Log.d("LineView::", "positionX: " + positionX + " value: " + value + " positionY: " + positionY);
             path.lineTo(positionX,positionY);
         }
-        path.lineTo(getWidth() - 173 , getHeight()/2); //끝라인
+        path.lineTo(getWidth() - 72 , getHeight()/2); //끝라인
         canvas.drawPath(path,paint);
     }
 

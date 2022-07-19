@@ -177,7 +177,7 @@ public class EqualizerProgressBar extends View {
                 processValue = getProcessValue()-1;
                 break;
         }
-        if(processValue < 0 || processValue > 100){
+        if(processValue < 0 || processValue >= 100){
             return true;
         }
         invalidate();
