@@ -21,15 +21,15 @@ public class EqualizerProgressBar extends View {
 
     private Paint paint = new Paint();
     private float processValue = 50 ; // 시작 값
-    private float maxProgress = 100; // 최대 값
+    private float maxProgress = 112; // 최대 값 -> UI가 바뀌면 다시 조정해야함.
 
     //UI
-    private int barWidth = 15 ;
-    private int barbgWidth = 8 ;
-    private int innerCircleRedius = 24; // 내부 원 크기
-    private int outerCircleRedius = 35; // 외부 원 크기
-    private int innerCircleWidth = 25; // 내부 원 너비
-    private int outerCirclewidth = 10; // 외부 원 너비
+    private int barWidth = 15 ; // 갈색 막대 width
+    private int barbgWidth = 8 ; // 흰색 막대 width
+    private int innerCircleRedius = 14; // 내부 원 크기
+    private int outerCircleRedius = 30; // 외부 원 크기
+    private int innerCircleWidth = 20; // 내부 원 너비
+    private int outerCirclewidth = 8; // 외부 원 너비
 
     private boolean gainFocus=false;
 
@@ -63,23 +63,24 @@ public class EqualizerProgressBar extends View {
         paint.setAntiAlias(true);
         // 초점 이동 지원
         if(gainFocus){
-            float position  = getHeight() -  getHeight() * processValue /maxProgress ;
+            //
+            float position  = getHeight() -  getHeight() * processValue /maxProgress;
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
             paint.setStrokeWidth(barWidth);
             canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight() , (getRight() - getLeft()) / 2 , position , paint);
 
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(barbgWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,position  , (getRight() - getLeft()) / 2 , 0 , paint);
+            canvas.drawLine((getRight() - getLeft()) / 2 ,position , (getRight() - getLeft()) / 2 , 0 , paint);
             // 외부 원 그리기
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
             paint.setStrokeWidth(innerCircleWidth);
-            canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius+10, paint);
+            canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius, paint);
 
             // 내부 원 그리기
             paint.setColor(Color.GRAY);
             paint.setStrokeWidth(outerCirclewidth);
-            canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius+10, paint);
+            canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
         }else{
 
             float position  = getHeight() -  getHeight() * processValue /maxProgress ;
@@ -89,7 +90,7 @@ public class EqualizerProgressBar extends View {
 
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(barbgWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,position  , (getRight() - getLeft()) / 2 , 0 , paint);
+            canvas.drawLine((getRight() - getLeft()) / 2 ,position  , (getRight() - getLeft()) / 2, 0 , paint);
             //绘制外圆
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_color));
             paint.setStrokeWidth(innerCircleWidth);
@@ -100,8 +101,6 @@ public class EqualizerProgressBar extends View {
             paint.setStrokeWidth(outerCirclewidth);
             canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
         }
-
-
     }
 
 
@@ -154,7 +153,7 @@ public class EqualizerProgressBar extends View {
             case MotionEvent.ACTION_MOVE:
                 float positionY = (getHeight() - event.getY() - getTop())* maxProgress/getHeight();
                 processValue = positionY;
-                if(processValue < 0 || processValue > 100){
+                if (processValue < 5 || processValue > 106) {
                     return true;
                 }
                 invalidate();
@@ -177,7 +176,7 @@ public class EqualizerProgressBar extends View {
                 processValue = getProcessValue()-1;
                 break;
         }
-        if(processValue < 0 || processValue >= 100){
+        if (processValue < 5 || processValue > 106) {
             return true;
         }
         invalidate();

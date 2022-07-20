@@ -38,7 +38,7 @@ public class LineView extends View {
 
     private void initPaint() {
         paint = new Paint();
-        paint.setStrokeWidth(20);
+        paint.setStrokeWidth(10);
         paint.setColor(Color.GRAY);
         paint.setStyle(Paint.Style.STROKE);
         path = new Path();
@@ -56,7 +56,7 @@ public class LineView extends View {
             //float positionX=(getWidth()/size*i)-(getWidth()/size/2); //x축으로 움직임.
             float positionX=(getWidth()/size*i)-(getWidth()/size/2); //x축으로 움직임.
             float value = lineMap.get(i); //선과 원의 거리 +5면 위로 5 올라감.
-            float positionY= getHeight()-(float) ((getHeight()/100.0)*value);
+            float positionY= getHeight() - (float)(((getHeight() - 70)/100.0)*value); // 고정값 70 Max or Min 라인 맞추기. -> UI 변경시 변경해주어야함.
             Log.d("LineView::", "positionX: " + positionX + " value: " + value + " positionY: " + positionY);
             path.lineTo(positionX,positionY);
         }
