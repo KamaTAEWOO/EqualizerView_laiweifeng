@@ -61,36 +61,39 @@ public class EqualizerProgressBar extends View {
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setAntiAlias(true);
+        //maxProgress = 4096; //따로 값을 줌.
+        //processValue = 2048; //따로 값을 줌.
         // 초점 이동 지원
-        if(gainFocus){
-            //
-            float position  = getHeight() -  getHeight() * processValue /maxProgress;
-            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
-            paint.setStrokeWidth(barWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight() , (getRight() - getLeft()) / 2 , position , paint);
+//        if(gainFocus){
+//            //
+//            float position  = getHeight() -  getHeight() * processValue /maxProgress;
+//            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
+//            paint.setStrokeWidth(barWidth);
+//            canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight() , (getRight() - getLeft()) / 2 , position , paint);
+//
+//            paint.setColor(Color.WHITE);
+//            paint.setStrokeWidth(barbgWidth);
+//            canvas.drawLine((getRight() - getLeft()) / 2 ,position , (getRight() - getLeft()) / 2 , 0 , paint);
+//            // 외부 원 그리기
+//            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
+//            paint.setStrokeWidth(innerCircleWidth);
+//            canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius, paint);
+//
+//            // 내부 원 그리기
+//            paint.setColor(Color.GRAY);
+//            paint.setStrokeWidth(outerCirclewidth);
+//            canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
+//        }else{
 
-            paint.setColor(Color.WHITE);
-            paint.setStrokeWidth(barbgWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,position , (getRight() - getLeft()) / 2 , 0 , paint);
-            // 외부 원 그리기
-            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
-            paint.setStrokeWidth(innerCircleWidth);
-            canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius, paint);
-
-            // 내부 원 그리기
-            paint.setColor(Color.GRAY);
-            paint.setStrokeWidth(outerCirclewidth);
-            canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
-        }else{
-
-            float position  = getHeight() -  getHeight() * processValue /maxProgress ;
+            float position  = getHeight() - getHeight() * processValue /maxProgress;
+            Log.d("ProgressBar Value()", "position: " + position + " getHeight():" + getHeight() + " getHeight() * processValue /maxProgress: " + getHeight() * processValue /maxProgress);
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_color));
             paint.setStrokeWidth(barWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight() , (getRight() - getLeft()) / 2 , position , paint);
+            canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight(), (getRight() - getLeft()) / 2 , position , paint);
 
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(barbgWidth);
-            canvas.drawLine((getRight() - getLeft()) / 2 ,position  , (getRight() - getLeft()) / 2, 0 , paint);
+            canvas.drawLine((getRight() - getLeft()) / 2 ,position, (getRight() - getLeft()) / 2, 0 , paint);
             //绘制外圆
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_color));
             paint.setStrokeWidth(innerCircleWidth);
@@ -100,7 +103,7 @@ public class EqualizerProgressBar extends View {
             paint.setColor(Color.GRAY);
             paint.setStrokeWidth(outerCirclewidth);
             canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
-        }
+     //   }
     }
 
 
@@ -147,6 +150,7 @@ public class EqualizerProgressBar extends View {
         equalizerProgressBarListener = listener;
     }
 
+    // 20220720 라인에 Touch Event를 해야지 잘 됨... 처음 앱을 시작했을 때 이슈 발생.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()){

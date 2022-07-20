@@ -71,19 +71,22 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
         mTextView.add((TextView) findViewById(R.id.txt_processValue9));
         for (int i = 0; i < mTextView.size(); i++) {
             int position = i;
-            mTextView.get(i).setTag(position + 1);
+            mTextView.get(i).setTag(position + 1); //처음에 값을 넣어주는 부분
         }
     }
 
+    // 처음 앱을 실행 했을 때만 함수를 탐.
     @Override
     public void initData() {
 //        eqValues = new int[]{
 //                100, 30, 60, 12, 18, 30, 50, 60,70
 //        };
+
         getEqValueList(); //List 받는 곳.
         for (int i = 0; i < eqValues.size(); i++) {
-            mEqualizerProgressBars.get(i).setProcessValue(eqValues.get(i));
-            mTextView.get(i).setText(String.valueOf(eqValues.get(i)));
+            mEqualizerProgressBars.get(i).setProcessValue((float)(eqValues.get(i) / 40.96));
+            Log.d("initData()", "Data: " + i + "번째 " + (float)(eqValues.get(i) / 40.96));
+            mTextView.get(i).setText(String.valueOf(eqValues.get(i) - 204)); //앱 실행시 데이터를 넣어주는 곳
             lineMap.put(i + 1, (float) eqValues.get(i));
         }
         lineView.setData(lineMap);
@@ -101,7 +104,7 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
 
     }
 
-
+    // ProgressBar을 움직일 때 적용됨.
     @Override
     public void onVlaueChanged(View view, float value) {
         int index = (int) view.getTag();
@@ -120,6 +123,7 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
         }
     }
 
+    // ProgressBar을 움직일 때 적용됨.
     @Override
     public void onVlaueUpdating(View view, float value) {
         int index = (int) view.getTag();
@@ -128,11 +132,14 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
     }
 
     public void getEqValueList() {
-        eqValues.add(100); //40
+        // 5 ~ 105까지 범위를 잡음.
+        // 204 ~ 4300까지 범위를 잡아야지 UI가 안 깨짐.
+        // 즉 204가 0이라는 뜻 -> 값이 들어오면 204를 더해줘야함. 그래야 UI가 깨지지 않음.
+        eqValues.add(4300); //40
         eqValues.add(3022); //50
         eqValues.add(4000); //60
-        eqValues.add(0); //70
-        eqValues.add(200); //80
+        eqValues.add(206); //70
+        eqValues.add(304); //80
         eqValues.add(500); //90
         eqValues.add(700); //100
         eqValues.add(900); //110
