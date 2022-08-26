@@ -24,15 +24,14 @@ public class EqualizerProgressBar extends View {
     private float maxProgress = 112; // 최대 값 -> UI가 바뀌면 다시 조정해야함.
 
     //UI
-    private int barWidth = 15 ; // 갈색 막대 width
-    private int barbgWidth = 8 ; // 흰색 막대 width
+    private int barWidth = 20; // 갈색 막대 width
+    private int barbgWidth = 15; // 흰색 막대 width
     private int innerCircleRedius = 14; // 내부 원 크기
     private int outerCircleRedius = 30; // 외부 원 크기
     private int innerCircleWidth = 20; // 내부 원 너비
     private int outerCirclewidth = 8; // 외부 원 너비
 
-    private boolean gainFocus=false;
-
+    //private boolean gainFocus=false;
 
     private OnEqualizerProgressBarListener equalizerProgressBarListener;
 
@@ -53,7 +52,7 @@ public class EqualizerProgressBar extends View {
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
-        this.gainFocus=gainFocus;
+        //this.gainFocus=gainFocus;
         invalidate();
     }
 
@@ -61,30 +60,6 @@ public class EqualizerProgressBar extends View {
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setAntiAlias(true);
-        //maxProgress = 4096; //따로 값을 줌.
-        //processValue = 2048; //따로 값을 줌.
-        // 초점 이동 지원
-//        if(gainFocus){
-//            //
-//            float position  = getHeight() -  getHeight() * processValue /maxProgress;
-//            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
-//            paint.setStrokeWidth(barWidth);
-//            canvas.drawLine((getRight() - getLeft()) / 2 ,getHeight() , (getRight() - getLeft()) / 2 , position , paint);
-//
-//            paint.setColor(Color.WHITE);
-//            paint.setStrokeWidth(barbgWidth);
-//            canvas.drawLine((getRight() - getLeft()) / 2 ,position , (getRight() - getLeft()) / 2 , 0 , paint);
-//            // 외부 원 그리기
-//            paint.setColor(getResources().getColor(R.color.equalizer_progressbar_selected_color));
-//            paint.setStrokeWidth(innerCircleWidth);
-//            canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius, paint);
-//
-//            // 내부 원 그리기
-//            paint.setColor(Color.GRAY);
-//            paint.setStrokeWidth(outerCirclewidth);
-//            canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
-//        }else{
-
             float position  = getHeight() - getHeight() * processValue /maxProgress;
             Log.d("ProgressBar Value()", "position: " + position + " getHeight():" + getHeight() + " getHeight() * processValue /maxProgress: " + getHeight() * processValue /maxProgress);
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_color));
@@ -94,18 +69,15 @@ public class EqualizerProgressBar extends View {
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(barbgWidth);
             canvas.drawLine((getRight() - getLeft()) / 2 ,position, (getRight() - getLeft()) / 2, 0 , paint);
-            //绘制外圆
+
             paint.setColor(getResources().getColor(R.color.equalizer_progressbar_color));
             paint.setStrokeWidth(innerCircleWidth);
             canvas.drawCircle((getRight() - getLeft()) / 2, position, outerCircleRedius, paint);
 
-            //绘制内圆
             paint.setColor(Color.GRAY);
             paint.setStrokeWidth(outerCirclewidth);
             canvas.drawCircle((getRight() - getLeft()) / 2, position, innerCircleRedius, paint);
-     //   }
     }
-
 
     /**
      *  set progress

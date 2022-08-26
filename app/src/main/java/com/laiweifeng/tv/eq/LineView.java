@@ -60,7 +60,7 @@ public class LineView extends View {
             Log.d("LineView::", "positionX: " + positionX + " value: " + value + " positionY: " + positionY);
             path.lineTo(positionX,positionY);
         }
-        path.lineTo(getWidth() - 72 , getHeight()/2); //끝라인
+        path.lineTo(getWidth() - 74 , getHeight()/2); //끝라인
         canvas.drawPath(path,paint);
     }
 

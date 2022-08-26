@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EqSettingsActivity extends BaseActivity implements EqualizerProgressBar.OnEqualizerProgressBarListener {
-
-
+    
     private List<EqualizerProgressBar> mEqualizerProgressBars = new ArrayList<>();
 
     private List<TextView> mTextView = new ArrayList<>();
@@ -25,7 +24,6 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
 
     //int[] eqValues;
     List<Integer> eqValues = new ArrayList<>();
-
 
     private Map<Integer, Float> lineMap = new HashMap<>();
 
@@ -114,7 +112,7 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
             // Tag Number == i가 같다면
             if (index == i) {
                 // 해당 Text에 setText
-                mTextView.get(i-1).setText(String.valueOf((int)(parseValue * 40.96))); // text에 보이는 숫자 : -4는 최소값과 최대값을 4씩 더해주어서
+                mTextView.get(i-1).setText(String.valueOf((int)(parseValue * 40.96))); // text에 보이는 숫자 : 5씩 더하고 빼야함.(min, max)
             }
             lineMap.put(index, value);
             lineView.setData(lineMap);
@@ -135,15 +133,44 @@ public class EqSettingsActivity extends BaseActivity implements EqualizerProgres
         // 5 ~ 105까지 범위를 잡음.
         // 204 ~ 4300까지 범위를 잡아야지 UI가 안 깨짐.
         // 즉 204가 0이라는 뜻 -> 값이 들어오면 204를 더해줘야함. 그래야 UI가 깨지지 않음.
-        eqValues.add(4300); //40
-        eqValues.add(3022); //50
-        eqValues.add(4000); //60
-        eqValues.add(206); //70
-        eqValues.add(304); //80
-        eqValues.add(500); //90
-        eqValues.add(700); //100
-        eqValues.add(900); //110
-        eqValues.add(1000); //125
+        eqValues.add(getDensityValueChange(4300)); //40
+        eqValues.add(getDensityValueChange(3022)); //50
+        eqValues.add(getDensityValueChange(4000)); //60
+        eqValues.add(getDensityValueChange(1006)); //70
+        eqValues.add(getDensityValueChange(1304)); //80
+        eqValues.add(getDensityValueChange(1600)); //90
+        eqValues.add(getDensityValueChange(1000)); //100
+        eqValues.add(getDensityValueChange(1800)); //110
+        eqValues.add(getDensityValueChange(1200)); //125
+    }
+
+
+    // density를 올리고 그래프 화면으로 들어오기 때문에 intent할 때 density를 전달해주면 됨.
+    public int getDensityValueChange (int value) {
+        int density = getDensity();
+        // 범위: -8 ~ 0 or 0 ~ 8
+        if(density < 0) {
+            // 범위: -8 ~ -1 -> -9%
+            density = Math.abs(density);
+            for(int i = 1; i <= density; i++){
+                value *= 0.92;
+            }
+        } else if(density > 0) {
+            // 범위: 1 ~ 8 -> +9%
+            for(int i = 1; i <= density; i++){
+                value *= 1.09;
+            }
+        } else {
+            // 다른 숫자나 0이 들어올 경우
+        }
+
+        // 범위: 0 ~ 8 -> 9%
+        return (int)value;
+    }
+
+    // density 값 들어오는 부분
+    public int getDensity () {
+        return -3;
     }
 
 }
